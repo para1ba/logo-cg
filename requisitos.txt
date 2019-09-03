@@ -1,0 +1,4 @@
+Cython==0.29.13
+glumpy==1.1.0
+numpy==1.17.1
+triangle==20190115.3
