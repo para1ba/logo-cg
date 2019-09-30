@@ -1,5 +1,7 @@
 from glumpy import app, gl, gloo
 import utils
+import math
+import numpy as np
 
 vertex = """
 attribute vec2 position;
@@ -32,6 +34,9 @@ def on_draw(dt):
     circle1.draw(gl.GL_TRIANGLE_STRIP)
     circle2.draw(gl.GL_TRIANGLE_STRIP)
     star.draw(gl.GL_TRIANGLE_STRIP)
+    curva.draw(gl.GL_TRIANGLE_STRIP)
+
+
 
 arr1 = utils.gen_dots_circle()
 arr2 = utils.gen_dots_circle(y_move=-0.25, radius=0.75) 
@@ -50,7 +55,13 @@ circle2['position'] = arr2
 circle3 = gloo.Program(vertex, fragment_white, count=len(arr3))
 circle3['position'] = arr3
 
+points = utils.curve4_bezier((-4/5.0, -4/5.0),( -2/5.0, 4/5.0), (2/5.0, -4/5.0), (4/5.0, 4/5.0))
+
+curva = gloo.Program(vertex, fragment_white, count=len(points))
+curva['position'] = points
+
 star = gloo.Program(vertex, fragment_white, count=len(arr_star + arr_star_inverted))
 star['position'] = arr_star + arr_star_inverted
 
 app.run()
+
