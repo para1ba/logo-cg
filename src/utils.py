@@ -65,6 +65,20 @@ def invert_x_axis(arr):
     resp = []
     
     for obj in arr:
-        resp.append((-obj[0], obj[1]))
+        if obj[0] == 0:
+            resp.append((obj[0], obj[1]))
+        else:
+            resp.append((-obj[0], obj[1]))
     
     return resp
+
+def translate_dot(x, y):
+    new_x = 2*x/WIDTH
+    new_y = 2*y/HEIGHT
+    return new_x, new_y
+
+def made_square(arr):
+    first_triangle = arr[0:3]
+    second_triangle = arr[2:4]
+    second_triangle.append(arr[0])
+    return first_triangle + second_triangle
