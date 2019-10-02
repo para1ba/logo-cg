@@ -186,17 +186,17 @@ def curve4_recursive_bezier( points, x1, y1, x2, y2, x3, y3, x4, y4, level=0):
     curve4_recursive_bezier( points, x1, y1, x12, y12, x123, y123, x1234, y1234, level + 1 )
     curve4_recursive_bezier( points, x1234, y1234, x234, y234, x34, y34, x4, y4, level + 1 )
 
-def circle_equation(radius=1.0):
+def circle_equation(radius=1.0, modifier=1.0):
     arr = []
     
     for x in range(math.ceil(radius*100)):
-        arr.append((x/100, math.sqrt(abs(radius**2 - ((x/100)**2)))))
+        arr.append(((x/100)*modifier, math.sqrt(abs(radius**2 - ((x/100)**2)))))
     
     return arr
 
-def gen_dots_circle(x_move=0.0, y_move=0.0, radius=1.0):
+def gen_dots_circle(x_move=0.0, y_move=0.0, radius=1.0, modifier=1.0):
     #arr = circle_equation(x_move, y_move, radius)
-    arr = circle_equation(radius)
+    arr = circle_equation(radius, modifier)
     resp = []
     zero_dot = (0, 0)
     for i in range(len(arr)-1):
@@ -223,7 +223,7 @@ def gen_dots_circle(x_move=0.0, y_move=0.0, radius=1.0):
         resp.append(zero_dot)
         resp.append(p4_aux)
     dot = arr[-1]
-    dot_aux = (radius, 0)
+    dot_aux = (radius*modifier, 0)
     p1 = (dot[0] + x_move, dot[1] + y_move)
     p1_aux = (dot_aux[0] + x_move, dot_aux[1] + y_move)
     resp.append(p1)
@@ -267,3 +267,52 @@ def made_square(arr):
     second_triangle = arr[2:4]
     second_triangle.append(arr[0])
     return first_triangle + second_triangle
+
+def draw_my_form():
+    arr, arr2 = [], []
+    
+    #corpo ?
+    #arr.append(curve4_bezier((-0.15, 0.4), (-0.35, 0.2), (0.05, 0), (-0.15, -0.2)))
+
+    arr.append(curve4_bezier((-0.17, 0.4), (-0.27, 0.2), (-0.07, 0), (-0.17, -0.2)))
+    arr.append(curve4_bezier((-0.17, -0.2), (-0.32, -0.4), (-0.07, -0.6), (-0.17, -0.9)))
+    arr.append(curve4_bezier((-0.18, 0.4), (-0.28, 0.2), (-0.08, 0), (-0.18, -0.2)))
+    arr.append(curve4_bezier((-0.18, -0.2), (-0.33, -0.4), (-0.08, -0.6), (-0.18, -0.9)))
+    arr.append(curve4_bezier((-0.19, 0.4), (-0.29, 0.2), (-0.09, 0), (-0.19, -0.2)))
+    arr.append(curve4_bezier((-0.19, -0.2), (-0.34, -0.4), (-0.09, -0.6), (-0.19, -0.9)))
+    
+    arr.append(curve4_bezier((-0.25, 0.38), (-0.35, 0.18), (-0.15, -0.02), (-0.25, -0.22)))
+    arr.append(curve4_bezier((-0.25, -0.22), (-0.4, -0.42), (-0.15, -0.62), (-0.25, -0.92)))
+    arr.append(curve4_bezier((-0.26, 0.38), (-0.36, 0.18), (-0.16, -0.02), (-0.26, -0.22)))
+    arr.append(curve4_bezier((-0.26, -0.22), (-0.41, -0.42), (-0.16, -0.62), (-0.26, -0.92)))
+
+    arr.append(curve4_bezier((-0.32, 0.36), (-0.42, 0.16), (-0.22, -0.04), (-0.32, -0.24)))
+    arr.append(curve4_bezier((-0.32, -0.24), (-0.47, -0.44), (-0.22, -0.64), (-0.32, -0.94)))
+    arr.append(curve4_bezier((-0.33, 0.36), (-0.43, 0.16), (-0.23, -0.04), (-0.33, -0.24)))
+    arr.append(curve4_bezier((-0.33, -0.24), (-0.48, -0.44), (-0.23, -0.64), (-0.33, -0.94)))
+    arr.append(made_square([(0.37, -0.31), (0.68, -0.66), (0.55, -0.66), (0.37, -0.46)]) +                     made_square([(0.38, -0.33), (0.66, -0.65), (0.56, -0.65), (0.38, -0.45)]) +                     made_square([(0.39, -0.35), (0.64, -0.64), (0.57, -0.64), (0.39, -0.44)]) +                     made_square([(0.4, -0.37), (0.62, -0.63), (0.58, -0.63), (0.4, -0.43)]) + 
+               made_square([(0.41, -0.39), (0.6, -0.62), (0.59, -0.62), (0.41, -0.42)]))
+    arr.append(curve4_bezier((0.5, -0.7), (0.8, -0.6), (0.9, 0), (0.8, 0.3)))
+    arr.append(curve4_bezier((0.51, -0.7), (0.81, -0.6), (0.91, 0), (0.81, 0.3)))
+    arr.append(curve4_bezier((0.52, -0.7), (0.82, -0.6), (0.92, 0), (0.82, 0.3)))
+    arr.append(curve4_bezier((0.53, -0.7), (0.83, -0.6), (0.93, 0), (0.83, 0.3)))
+    arr.append(curve4_bezier((0.54, -0.7), (0.84, -0.6), (0.94, 0), (0.84, 0.3)))
+    arr.append(curve4_bezier((0.55, -0.7), (0.85, -0.6), (0.95, 0), (0.85, 0.3)))
+    arr.append(curve4_bezier((0.56, -0.7), (0.86, -0.6), (0.96, 0), (0.86, 0.3)))
+    arr.append(curve4_bezier((0.57, -0.7), (0.87, -0.6), (0.97, 0), (0.87, 0.3)))
+    ######
+    arr2.append(curve4_bezier((-0.16, 0.4), (-0.26, 0.2), (-0.06, 0), (-0.16, -0.2)))
+    arr2.append(curve4_bezier((-0.16, -0.2), (-0.31, -0.4), (-0.06, -0.6), (-0.16, -0.9)))
+    arr2.append(curve4_bezier((-0.15, 0.4), (-0.25, 0.2), (-0.05, 0), (-0.15, -0.2)))
+    arr2.append(curve4_bezier((-0.15, -0.2), (-0.3, -0.4), (-0.05, -0.6), (-0.15, -0.9)))
+    
+    arr2.append(curve4_bezier((0.15, 0.02), (0.02, 0), (-0.02, 0), (-0.15, 0.02)))
+    arr2.append(curve4_bezier((0.15, 0), (0.02, -0.02), (-0.02, -0.02), (-0.15, 0)))
+    arr2.append(curve4_bezier((0.15, 0.1), (0.04, 0), (-0.04, 0), (-0.15, 0.1)))
+    arr2.append(curve4_bezier((0.15, 0.08), (0.05, 0), (-0.05, 0), (-0.15, 0.08)))
+    arr2.append(curve4_bezier((0.15, 0.06), (0.06, 0), (-0.06, 0), (-0.15, 0.06)))
+    arr2.append(curve4_bezier((0.15, 0.04), (0.07, 0), (-0.07, 0), (-0.15, 0.04)))
+    arr2.append(curve4_bezier((0.17, 0.13), (0.06, 0), (-0.06, 0), (-0.17, 0.13)))
+    arr2.append(curve4_bezier((0.17, 0.16), (0.07, 0), (-0.07, 0), (-0.17, 0.16)))
+
+    return arr, arr2
